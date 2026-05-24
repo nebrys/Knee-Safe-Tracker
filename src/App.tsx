@@ -390,18 +390,18 @@ export default function App() {
     try {
       const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
       let offset = 0;
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 5; i++) {
         const osc = audioCtx.createOscillator();
         const gainNode = audioCtx.createGain();
-        osc.type = "sine";
-        osc.frequency.setValueAtTime(880, audioCtx.currentTime + offset);
-        gainNode.gain.setValueAtTime(0.15, audioCtx.currentTime + offset);
-        gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + offset + 0.18);
+        osc.type = "square"; // Cut through background noise better than sine
+        osc.frequency.setValueAtTime(1046.50, audioCtx.currentTime + offset); // Higher pitch (C6)
+        gainNode.gain.setValueAtTime(0.8, audioCtx.currentTime + offset); // Much louder (0.8 vs 0.15)
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + offset + 0.3);
         osc.connect(gainNode);
         gainNode.connect(audioCtx.destination);
         osc.start(audioCtx.currentTime + offset);
-        osc.stop(audioCtx.currentTime + offset + 0.18);
-        offset += 0.22;
+        osc.stop(audioCtx.currentTime + offset + 0.3);
+        offset += 0.4;
       }
     } catch (e) {
       console.log("No web audio permitted on this iframe browser scope", e);
