@@ -74,7 +74,7 @@ export function ExerciseCard({
             <button
               id={`btn-rename-${exoIndex}`}
               onClick={() => onRename(exoIndex)}
-              className="text-slate-400 dark:text-slate-550 hover:text-slate-600 dark:hover:text-slate-300 p-1 rounded-md transition-colors"
+              className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 p-1 rounded-md transition-colors"
               title="Rename Exercise"
             >
               <Edit2 className="w-3.5 h-3.5" />
@@ -113,18 +113,18 @@ export function ExerciseCard({
       {/* Target & Rest Row */}
       <div className="grid grid-cols-2 gap-2 border-t border-slate-100 dark:border-slate-800/80 pt-3.5 pb-2">
         <div className="flex flex-col">
-          <span className="text-[10px] text-slate-450 dark:text-slate-500 font-bold uppercase tracking-[0.05em]">Goal Reps</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.05em]">Goal Reps</span>
           <span className="font-mono text-sm font-semibold text-slate-700 dark:text-slate-300">{exState.targetReps}</span>
         </div>
         <div className="flex flex-col text-right">
-          <span className="text-[10px] text-slate-450 dark:text-slate-500 font-bold uppercase tracking-[0.05em]">Rest Interval</span>
-          <span className="font-mono text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-455">{exTemplate.rest}</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.05em]">Rest Interval</span>
+          <span className="font-mono text-xs sm:text-sm font-medium text-slate-500 dark:text-slate-400">{exTemplate.rest}</span>
         </div>
       </div>
 
       {/* Rep-Picker Counter System */}
       <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-950/40 px-4 py-3 rounded-xl border border-slate-100 dark:border-slate-800/50 mb-4 transition-all hover:bg-slate-100/50 dark:hover:bg-slate-950/60">
-        <span className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-455">
+        <span className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
           {exTemplate.isHold ? "Rep Hold (seconds)" : "Reps to Log"}
         </span>
         <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-full px-1.5 py-1">
@@ -200,14 +200,14 @@ export function ExerciseCard({
 
             <div className="space-y-3 text-left">
               <div>
-                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase block tracking-wider mb-0.5">Setup Position</span>
+                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase block tracking-wider mb-0.5">Setup Position</span>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
                   {exTemplate.setup}
                 </p>
               </div>
 
               <div>
-                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-550 uppercase block tracking-wider mb-0.5">Form Action</span>
+                <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase block tracking-wider mb-0.5">Form Action</span>
                 <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
                   {exTemplate.form}
                 </p>

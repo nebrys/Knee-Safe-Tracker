@@ -80,12 +80,12 @@ export function SupersetCard({
             <span className={`inline-flex text-[10px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg border ${theme.badge} mr-2`}>
               SUPERSET {pairingLetter}
             </span>
-            <h3 className="font-display font-black text-sm sm:text-base text-slate-850 dark:text-slate-100 inline-block align-middle">
+            <h3 className="font-display font-black text-sm sm:text-base text-slate-800 dark:text-slate-100 inline-block align-middle">
               Antagonist Paired System
             </h3>
           </div>
         </div>
-        <p className="text-[11px] font-bold text-slate-450 dark:text-slate-500 flex items-center gap-1">
+        <p className="text-[11px] font-bold text-slate-400 dark:text-slate-500 flex items-center gap-1">
           <Sparkles className="w-3.5 h-3.5 text-brand-400" />
           Alternate back-to-back, rest after last card
         </p>
@@ -119,7 +119,7 @@ export function SupersetCard({
                     <button
                       id={`btn-superset-rename-${originalIndex}`}
                       onClick={() => onRename(originalIndex)}
-                      className="text-slate-400 dark:text-slate-550 hover:text-slate-600 dark:hover:text-slate-300 p-1 rounded-md transition-colors"
+                      className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 p-1 rounded-md transition-colors"
                       title="Rename Exercise"
                     >
                       <Edit2 className="w-3 h-3" />
@@ -132,8 +132,8 @@ export function SupersetCard({
                         {template.targetMuscle}
                       </span>
                     )}
-                    <span className="inline-flex text-[9px] font-medium text-slate-450 dark:text-slate-500">
-                      Target Reps: <b className="font-bold text-slate-650 dark:text-slate-350 ml-0.5">{state.targetReps}</b>
+                    <span className="inline-flex text-[9px] font-medium text-slate-400 dark:text-slate-500">
+                      Target Reps: <b className="font-bold text-slate-600 dark:text-slate-300 ml-0.5">{state.targetReps}</b>
                     </span>
                   </div>
                 </div>
@@ -145,7 +145,7 @@ export function SupersetCard({
                   className={`p-1.5 rounded-lg border transition-all ${
                     isInfoOpen
                       ? "bg-brand-50 border-brand-200 text-brand-500 dark:bg-brand-950/20 dark:border-brand-900 dark:text-brand-400"
-                      : "bg-slate-50 border-slate-100 text-slate-400 dark:bg-slate-800 dark:border-slate-700/60 dark:text-slate-550"
+                      : "bg-slate-50 border-slate-100 text-slate-400 dark:bg-slate-800 dark:border-slate-700/60 dark:text-slate-500"
                   }`}
                   title="Form cues and guide details"
                 >
@@ -165,7 +165,7 @@ export function SupersetCard({
                     id={`btn-superset-dec-${originalIndex}`}
                     onClick={() => onAdjustReps(originalIndex, -1)}
                     type="button"
-                    className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-350 font-black text-xs cursor-pointer transition-colors border border-slate-50 dark:border-slate-800"
+                    className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs cursor-pointer transition-colors border border-slate-50 dark:border-slate-800"
                   >
                     -
                   </button>
@@ -175,14 +175,14 @@ export function SupersetCard({
                     type="number"
                     value={state.selectedReps}
                     onChange={(e) => onManualReps(originalIndex, e.target.value)}
-                    className="w-9 text-center text-xs font-black text-slate-800 dark:text-slate-105 bg-transparent border-0 outline-none focus:ring-0 focus:outline-none [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
+                    className="w-9 text-center text-xs font-black text-slate-800 dark:text-slate-100 bg-transparent border-0 outline-none focus:ring-0 focus:outline-none [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
                   />
 
                   <button
                     id={`btn-superset-inc-${originalIndex}`}
                     onClick={() => onAdjustReps(originalIndex, 1)}
                     type="button"
-                    className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-850 text-slate-600 dark:text-slate-350 font-black text-xs cursor-pointer transition-colors border border-slate-50 dark:border-slate-800"
+                    className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 font-black text-xs cursor-pointer transition-colors border border-slate-50 dark:border-slate-800"
                   >
                     +
                   </button>
@@ -194,25 +194,25 @@ export function SupersetCard({
                 <div className="mt-3.5 pt-3.5 border-t border-slate-100 dark:border-slate-800/80 space-y-3.5 text-left animate-fadeIn">
                   <div>
                     <span className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase block tracking-wider mb-0.5">Biomechanical Setup Location</span>
-                    <p className="text-xs text-slate-655 dark:text-slate-300 leading-relaxed font-semibold">
+                    <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
                       {template.setup}
                     </p>
                   </div>
 
                   <div>
                     <span className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase block tracking-wider mb-0.5">Correct Execution Rules</span>
-                    <p className="text-xs text-slate-655 dark:text-slate-300 leading-relaxed font-semibold">
+                    <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-semibold">
                       {template.form}
                     </p>
                   </div>
 
                   <div className="bg-emerald-500/[0.03] dark:bg-emerald-500/[0.01]/10 border border-emerald-500/10 rounded-xl p-3">
-                    <span className="text-[9px] font-black text-emerald-600 dark:text-emerald-450 uppercase block tracking-wider flex items-center gap-1 mb-1.5">
+                    <span className="text-[9px] font-black text-emerald-600 dark:text-emerald-400 uppercase block tracking-wider flex items-center gap-1 mb-1.5">
                       <ShieldCheck className="w-3.5 h-3.5" /> High-Safety Coaching Cues
                     </span>
                     <ul className="space-y-1">
                       {template.cues.map((cue, cIdx) => (
-                        <li key={cIdx} className="text-xs text-slate-555 dark:text-slate-300 flex items-start gap-1.5 leading-relaxed font-semibold">
+                        <li key={cIdx} className="text-xs text-slate-500 dark:text-slate-300 flex items-start gap-1.5 leading-relaxed font-semibold">
                           <span className="text-emerald-500 shrink-0">✓</span>
                           <span>{cue}</span>
                         </li>
@@ -227,7 +227,7 @@ export function SupersetCard({
       </div>
 
       {/* Unified Set Tracker Row */}
-      <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-850/80">
+      <div className="mt-6 pt-5 border-t border-slate-100 dark:border-slate-800/85">
         <div className="mb-3 text-left">
           <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest block mb-0.5">
             SUPERSets Complete Tracker ({exercises[exercises.length - 1]?.template.rest})
@@ -262,7 +262,7 @@ export function SupersetCard({
                     ? "bg-emerald-50 dark:bg-emerald-950/40 border-emerald-350 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400 font-black scale-98 shadow-sm"
                     : isPartiallyDone
                     ? "bg-amber-50 dark:bg-amber-950/20 border-amber-300 dark:border-amber-800/80 text-amber-600 dark:text-amber-400 font-bold"
-                    : "bg-slate-50 hover:bg-slate-100 dark:bg-slate-850 dark:hover:bg-slate-800 border-slate-200/50 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold"
+                    : "bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700/80 border-slate-200/50 dark:border-slate-800 text-slate-500 dark:text-slate-400 font-bold"
                 }`}
               >
                 <span className="text-[9px] uppercase tracking-wider text-slate-400 dark:text-slate-500 font-black">Set {sIdx + 1}</span>
