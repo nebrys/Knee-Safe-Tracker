@@ -1,0 +1,6 @@
+{
+  "name": "Knee-Safe Workout Tracker",
+  "description": "An interactive workout routine tracker tailored for knee-safe upper and lower body movements, including McGill Big 3 core exercises.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
