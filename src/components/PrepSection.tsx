@@ -25,9 +25,9 @@ export function PrepSection() {
   };
 
   const mcgillItems = [
-    { id: "curl_up", name: "Curl-Up", desc: "6, 4, 2 sets of 8-10 seconds hold" },
-    { id: "side_plank", name: "Side Plank", desc: "6, 4, 2 sets of 8-10 seconds hold (per side)" },
-    { id: "bird_dog", name: "Bird-Dog", desc: "6, 4, 2 sets of 8-10 seconds hold (per side)" },
+    { id: "curl_up", name: "Curl-Up", desc: "6, 4, 2 holds of 8-10 seconds" },
+    { id: "side_plank", name: "Side Plank", desc: "6, 4, 2 holds of 8-10 seconds (per side)" },
+    { id: "bird_dog", name: "Bird-Dog", desc: "6, 4, 2 holds of 8-10 seconds (per side)" },
   ];
 
   const warmupItems = [

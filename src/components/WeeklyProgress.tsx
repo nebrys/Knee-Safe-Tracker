@@ -13,10 +13,9 @@ import {
 
 interface WeeklyProgressProps {
   history: HistoryItem[];
-  onAddRecoverySession: () => void;
 }
 
-export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgressProps) {
+export function WeeklyProgress({ history }: WeeklyProgressProps) {
   const [hoveredDayIndex, setHoveredDayIndex] = useState<number | null>(null);
   const [timeRange, setTimeRange] = useState<"7d" | "30d" | "90d">("7d");
   const [isReady, setIsReady] = useState(false);
@@ -48,44 +47,6 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
     });
     return acc + repSum;
   }, 0);
-
-  // Streak calculations
-  const calculateStreak = (): number => {
-    if (history.length === 0) return 0;
-    
-    // Convert timestamps to calendar day string index to avoid hour disparities
-    const trainedDates = new Set<string>();
-    history.forEach(item => {
-      const d = new Date(item.timestamp);
-      trainedDates.add(d.toDateString());
-    });
-
-    let streak = 0;
-    const current = new Date();
-    
-    // Check if user worked out today or yesterday (to keep the streak active)
-    const todayStr = current.toDateString();
-    current.setDate(current.getDate() - 1);
-    const yesterdayStr = current.toDateString();
-
-    if (!trainedDates.has(todayStr) && !trainedDates.has(yesterdayStr)) {
-      return 0; // Streak broken
-    }
-
-    // Roll backwards to count sequence
-    const checkDate = new Date(); // reset to today
-    while (true) {
-      if (trainedDates.has(checkDate.toDateString())) {
-        streak++;
-        checkDate.setDate(checkDate.getDate() - 1);
-      } else {
-        break;
-      }
-    }
-    return streak;
-  };
-
-  const currentStreak = calculateStreak();
 
   // Construct Day-by-day metrics for the selected range
   const getRangeData = () => {
@@ -145,7 +106,7 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
   const maxSetsInDay = Math.max(...chartData.map(d => d.sets), 4);
 
   // Weekly Set Goal Target progress %
-  const WEEKLY_SETS_TARGET = 24;
+  const WEEKLY_SETS_TARGET = 60;
   const targetPercent = Math.min(100, Math.round((totalSetsSevenDays / WEEKLY_SETS_TARGET) * 100));
 
   // PROGRESS OVERLOAD ANALYSIS: Compare latest workout stats of a routine vs the one before it to show progress
@@ -175,9 +136,6 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
       const latest = items[0];
       const previous = items[1];
 
-      // Exclude simple recovery check-ins
-      if (rId === "recovery") return;
-
       const latestCompletedSets = latest.completedSets;
       const prevCompletedSets = previous.completedSets;
 
@@ -201,7 +159,7 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
           latestDate: latest.date,
           status: "progress",
           title: "📈 Progressive Overload Achieved!",
-          description: `You logged ${latestCompletedSets} sets (${latestUnits} work units) compared to ${prevCompletedSets} sets (${prevUnits} units) previously. Mechanical load increased!`,
+          description: `You logged ${latestCompletedSets} sets (${latestUnits} Vol.) compared to ${prevCompletedSets} sets (${prevUnits} Vol.) previously. Mechanical load increased!`,
         });
       } else if (latestCompletedSets === prevCompletedSets && latestUnits === prevUnits) {
         analysisResults.push({
@@ -209,7 +167,7 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
           latestDate: latest.date,
           status: "stable",
           title: "⚖️ Workload Consistently Maintained",
-          description: `Matched previous stats of ${latestCompletedSets} sets and ${latestUnits} total units exactly. Perfect consistency for consolidation!`,
+          description: `Matched previous stats of ${latestCompletedSets} sets and ${latestUnits} total Vol. exactly. Perfect consistency for consolidation!`,
         });
       } else {
         analysisResults.push({
@@ -244,7 +202,7 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
     if (daysSinceLast > 3.5) {
       return {
         title: "🌱 Extended Joint Rest Warning",
-        desc: "No active movement logged for over 3 days. Connective cartilage thrives on light active synovia circulation. Perform an quick Joint Recovery Check-in (stationary ride or walk) to lubricate the knee capsule pain-free!",
+        desc: "No active movement logged for over 3 days. Connective cartilage thrives on light active synovia circulation. Perform a quick stationary ride or walk to lubricate the knee capsule pain-free!",
         status: "alert",
       };
     }
@@ -259,7 +217,7 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
 
     return {
       title: "🏆 Active Joint Adaptations Loaded",
-      desc: "Perfect consistency streak! Core McGill stabilizer holds combined with VMO wall sit co-contractions are progressively training muscle tissue without overwhelming knee joint tolerances.",
+      desc: "Perfect consistency! Core McGill stabilizer holds combined with adductor wall sit co-contractions are progressively training muscle tissue without overwhelming knee joint tolerances.",
       status: "success",
     };
   };
@@ -305,11 +263,11 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-sm relative overflow-hidden">
           <div className="flex justify-between items-start mb-3">
             <div>
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">7-Day Total Load Units</span>
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">7-Day Total Vol.</span>
               <span className="text-3xl font-extrabold text-slate-900 dark:text-slate-50 font-display">
                 {totalRepsSevenDays}
               </span>
-              <span className="text-xs text-slate-500 block mt-1">total recorded work units (reps/sec)</span>
+              <span className="text-xs text-slate-500 block mt-1">total recorded volume (reps/sec)</span>
             </div>
             <div className="p-2.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl">
               <Zap className="w-5 h-5" />
@@ -420,7 +378,7 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
                           </div>
                           {data.reps > 0 && (
                             <div className="flex justify-between gap-4 font-mono mt-0.5">
-                              <span className="text-slate-400 font-bold">Total Load Units:</span>
+                              <span className="text-slate-400 font-bold">Total Vol.:</span>
                               <span className="font-extrabold">{data.reps}</span>
                             </div>
                           )}
@@ -561,28 +519,6 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
             {coachFeedback.desc}
           </p>
         </div>
-      </div>
-
-      {/* RECOVERY DAY QUICK LOG CHECK-IN */}
-      <div className="bg-gradient-to-tr from-brand-600 to-sky-500 text-white rounded-3xl p-5 shadow-xl shadow-brand-500/10 flex flex-col md:flex-row items-center justify-between gap-5 text-left border border-brand-500/40">
-        <div className="space-y-1">
-          <span className="text-[10px] font-bold text-brand-100 uppercase tracking-widest bg-brand-500/50 px-2 py-0.5 rounded-md">
-            Rest & Lubrication Phase (Rest Day)
-          </span>
-          <h4 className="font-display font-black text-base sm:text-lg">
-            Quick Check-in: 20-min Knee Active Recovery Cycle
-          </h4>
-          <p className="text-xs text-brand-50/90 leading-relaxed font-medium max-w-xl">
-            Gentle cycling or walking warms your joint fluid (synovial fluid), which supplies cartilage with oxygen and nutrients, flushing out inflammation entirely pain-free. Click to check-in and claim your streak boost!
-          </p>
-        </div>
-
-        <button
-          onClick={onAddRecoverySession}
-          className="w-full md:w-auto shrink-0 bg-white hover:bg-slate-50 text-brand-600 font-display font-black text-xs sm:text-sm uppercase tracking-wider px-5 py-3.5 rounded-xl shadow-md transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer active:scale-97 hover:scale-102"
-        >
-          Check-in Clean <ArrowUpRight className="w-4 h-4 text-brand-500" />
-        </button>
       </div>
 
     </div>

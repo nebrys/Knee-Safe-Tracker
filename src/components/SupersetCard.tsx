@@ -242,7 +242,8 @@ export function SupersetCard({
             // Check if BOTH exercises have values logged for this set
             const logSummary = exercises.map(ex => {
               const val = ex.state.loggedSets[sIdx];
-              return val !== null ? `${val}r` : null;
+              const unit = ex.template.isHold ? 'sec' : 'r';
+              return val !== null ? `${val}${unit}` : null;
             });
 
             const isDone = logSummary.every(item => item !== null);

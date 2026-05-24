@@ -173,7 +173,7 @@ export function ExerciseCard({
             >
               <span className="text-[9px] uppercase tracking-wider text-slate-400 dark:text-slate-500">Set {sIdx + 1}</span>
               <span className="font-mono text-sm leading-tight mt-0.5">
-                {isDone ? `${loggedReps} r` : "—"}
+                {isDone ? `${loggedReps} ${exTemplate.isHold ? 'sec' : 'r'}` : "—"}
               </span>
             </button>
           );

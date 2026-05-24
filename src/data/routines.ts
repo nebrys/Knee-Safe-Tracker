@@ -163,19 +163,19 @@ export const DEFAULT_ROUTINES: Routine[] = [
     exercises: [
       {
         id: "l1_a1",
-        name: "Shallow Wall Sit with VMO Co-Contraction",
+        name: "Shallow Wall Sit with Adductor Co-Contraction",
         sets: 3,
-        reps: "3 reps of 45s",
-        rest: "30s rest between reps, 90s between main sets",
+        reps: "3 holds of 45s",
+        rest: "30s rest between holds, 90s between main sets",
         defaultReps: 45,
-        targetMuscle: "VMO (Quad Tracking) & Adductors",
+        targetMuscle: "Quads & Adductors (Patellar Tracking)",
         isHold: true,
         setup: "Lean your back flat against a wall, positioning your feet forward. Squeeze a small Swiss ball, yoga block, or rolled-up towel firmly between your knees.",
-        form: "Lower your hips into a shallow squat, bending knees to only 45 degrees. Ensure high shin verticality.",
+        form: "Lower your hips into a shallow squat, bending knees to exactly 45 degrees. Do not exceed this depth, as patellofemoral compressive forces spike dramatically past 60 degrees. Ensure high shin verticality.",
         cues: [
           "Keep a long Heel-to-Wall Distance (HTWD) to maintain perfectly vertical shins.",
-          "Flex knees to only 45 degrees—avoid deeper angles to remain completely pain-free.",
-          "Squeeze the object between your knees firmly; adductor recruitment co-activates the VMO, pulling the patella medially for improved tracking."
+          "Flex knees strictly to 45 degrees—avoid deeper angles to remain completely pain-free.",
+          "Squeeze the object between your knees firmly; adductor co-contraction significantly improves overall quadriceps recruitment and dynamic knee valgus control."
         ]
       },
       {
@@ -436,19 +436,19 @@ export const DEFAULT_ROUTINES: Routine[] = [
     exercises: [
       {
         id: "l2_a1",
-        name: "Shallow Wall Sit with VMO Co-Contraction",
+        name: "Shallow Wall Sit with Adductor Co-Contraction",
         sets: 3,
-        reps: "3 reps of 45s",
-        rest: "30s rest between reps, 90s between main sets",
+        reps: "3 holds of 45s",
+        rest: "30s rest between holds, 90s between main sets",
         defaultReps: 45,
-        targetMuscle: "VMO (Quad Tracking) & Adductors",
+        targetMuscle: "Quads & Adductors (Patellar Tracking)",
         isHold: true,
         setup: "Lean your back flat against a wall, positioning your feet forward. Squeeze a small Swiss ball, yoga block, or rolled-up towel firmly between your knees.",
-        form: "Lower your hips into a shallow squat, bending knees to only 45 degrees. Ensure high shin verticality.",
+        form: "Lower your hips into a shallow squat, bending knees to exactly 45 degrees. Do not exceed this depth, as patellofemoral compressive forces spike dramatically past 60 degrees. Ensure high shin verticality.",
         cues: [
           "Keep a long Heel-to-Wall Distance (HTWD) to maintain perfectly vertical shins.",
-          "Flex knees to only 45 degrees—avoid deeper angles to remain completely pain-free.",
-          "Squeeze the object between your knees firmly; adductor recruitment co-activates the VMO, pulling the patella medially for improved tracking."
+          "Flex knees strictly to 45 degrees—avoid deeper angles to remain completely pain-free.",
+          "Squeeze the object between your knees firmly; adductor co-contraction significantly improves overall quadriceps recruitment and dynamic knee valgus control."
         ]
       },
       {

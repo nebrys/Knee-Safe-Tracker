@@ -529,34 +529,6 @@ export default function App() {
     triggerToast("📥 History successfully restored!");
   };
 
-  // Log an active key recovery phase session
-  const handleAddRecoverySession = () => {
-    const recoveryRecord: HistoryItem = {
-      id: Date.now().toString(),
-      date: new Date().toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-      timestamp: Date.now(),
-      routineId: "recovery",
-      routineName: "Active knee-safe recovery",
-      completedSets: 1,
-      totalSets: 1,
-      exercises: [
-        {
-          name: "Knee-Safe Low-Intensity Ride/Walk",
-          sets: [1],
-        },
-      ],
-    };
-    const newHistory = [recoveryRecord, ...history];
-    setHistory(newHistory);
-    localStorage.setItem("ulppl_v3_history", JSON.stringify(newHistory));
-    triggerToast("🚲 Recovery checked in successfully!");
-  };
-
   // Toggle tab
   const handleToggleHistoryTab = () => {
     setActiveTab(prev => (prev === "history" ? "workout" : "history"));
@@ -792,11 +764,10 @@ export default function App() {
             <button
               id="btn-save-entire-workout"
               onClick={handleSaveSession}
-              className="w-full flex items-center justify-center gap-2 py-4 bg-emerald-600 hover:bg-emerald-500 active:scale-99 text-white font-display font-black text-sm uppercase tracking-wider rounded-2xl shadow-lg shadow-emerald-500/20 shadow-lg cursor-pointer transition-all duration-200 mt-8"
+              className="w-full flex items-center justify-center gap-2 py-4 bg-emerald-600 hover:bg-emerald-500 active:scale-99 text-white font-display font-black text-sm uppercase tracking-wider rounded-2xl shadow-lg shadow-emerald-500/20 cursor-pointer transition-all duration-200 mt-8"
             >
               <Save className="w-5 h-5" /> Enregistrer la Séance (Save Workout)
             </button>
-
           </div>
         )}
 
@@ -804,7 +775,6 @@ export default function App() {
         {activeTab === "progress" && (
           <WeeklyProgress
             history={history}
-            onAddRecoverySession={handleAddRecoverySession}
           />
         )}
 

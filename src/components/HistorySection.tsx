@@ -156,12 +156,14 @@ export function HistorySection({
                     <Trash2 className="w-4 h-4" />
                   </button>
 
-                  <button
-                    onClick={() => toggleAccordion(item.id)}
-                    className="p-2 text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/65 rounded-xl transition-colors"
-                  >
-                    {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-                  </button>
+                  {item.exercises.length > 0 && (
+                    <button
+                      onClick={() => toggleAccordion(item.id)}
+                      className="p-2 text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/65 rounded-xl transition-colors"
+                    >
+                      {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -408,7 +410,7 @@ export function HistorySection({
               DANGER: Wipe History?
             </h3>
             <p className="text-xs text-rose-600 dark:text-rose-400 font-bold bg-rose-500/10 rounded-xl p-2.5 mb-4 leading-relaxed">
-              ⚠️ Warning: This will permanently purge your entire local workout history log files and erase all streak counts. This is completely irreversible!
+              ⚠️ Warning: This will permanently purge your entire local workout history log files. This is completely irreversible!
             </p>
             <p className="text-[11px] text-slate-500 dark:text-slate-400 mb-5 leading-normal">
               If you haven't exported your data, you will lose your weekly, monthly, and progressive overload graphs.
