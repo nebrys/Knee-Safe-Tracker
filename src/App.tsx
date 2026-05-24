@@ -476,6 +476,7 @@ export default function App() {
       totalSets: totalSetsCount,
       exercises: currentWorkoutState.map(ex => ({
         name: ex.name,
+        isHold: targetRoutine.exercises.find(e => e.id === ex.exerciseId)?.isHold,
         sets: [...ex.loggedSets],
       })),
     };
@@ -636,7 +637,7 @@ export default function App() {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-6">
         
         {/* Navigation Tabs Switcher */}
-        <div className="flex bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-1 rounded-2xl shadow-sm mb-6 max-w-md mx-auto">
+        <div className="flex bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 rounded-2xl shadow-sm mb-6 max-w-md mx-auto">
           <button
             onClick={() => setActiveTab("workout")}
             id="tab-btn-workout"
@@ -654,7 +655,7 @@ export default function App() {
             className={`flex-1 py-2.5 px-2 sm:px-4 rounded-xl font-display font-bold text-xs sm:text-sm text-center transition-all cursor-pointer ${
               activeTab === "progress"
                 ? "bg-brand-500 text-white shadow-md shadow-brand-500/10"
-                : "text-slate-500 dark:text-slate-400 hover:text-slate-705 dark:hover:text-slate-300"
+                : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
             }`}
           >
             Weekly Progress
@@ -665,7 +666,7 @@ export default function App() {
             className={`flex-1 py-2.5 px-2 sm:px-4 rounded-xl font-display font-bold text-xs sm:text-sm text-center transition-all cursor-pointer ${
               activeTab === "history"
                 ? "bg-brand-500 text-white shadow-md shadow-brand-500/10"
-                : "text-slate-500 dark:text-slate-400 hover:text-slate-705 dark:hover:text-slate-300"
+                : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
             }`}
           >
             History Logs
@@ -680,9 +681,9 @@ export default function App() {
             <PrepSection />
 
             {/* Workout dropdown panel */}
-            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-850 p-4 rounded-2xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-4 rounded-2xl shadow-sm flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
               <div>
-                <label className="text-[10px] text-slate-450 dark:text-slate-505 font-bold uppercase tracking-wider block mb-1">
+                <label className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-wider block mb-1">
                   Active Split Session
                 </label>
                 <select
@@ -725,14 +726,14 @@ export default function App() {
                 <button
                   onClick={handleExportRoutines}
                   type="button"
-                  className="inline-flex items-center gap-1.5 px-3 py-2 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-755 text-slate-700 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95"
                   title="Download dynamic routines configuration to a JSON backup"
                 >
-                  <Download className="w-3.5 h-3.5 text-brand-505" />
+                  <Download className="w-3.5 h-3.5 text-brand-500" />
                   <span>Export JSON</span>
                 </button>
                 <label
-                  className="inline-flex items-center gap-1.5 px-3 py-2 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-755 text-slate-700 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-3 py-2 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95"
                   title="Upload previously saved JSON file to restore custom routine settings"
                 >
                   <Upload className="w-3.5 h-3.5 text-emerald-500" />
@@ -833,7 +834,7 @@ export default function App() {
       {isManualTimerModalOpen && (
         <div className="fixed inset-0 bg-slate-900/60 dark:bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
-            <h3 className="font-display font-extrabold text-lg text-slate-850 dark:text-slate-100 flex items-center gap-2 mb-2">
+            <h3 className="font-display font-extrabold text-lg text-slate-800 dark:text-slate-100 flex items-center gap-2 mb-2">
               <Clock className="text-brand-500 w-5 h-5" /> Manual Timer Setup
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-4">
@@ -852,7 +853,7 @@ export default function App() {
             <div className="grid grid-cols-2 gap-3">
               <button
                 onClick={() => setIsManualTimerModalOpen(false)}
-                className="py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-755 text-slate-700 dark:text-slate-350 font-bold rounded-xl text-xs sm:text-sm cursor-pointer transition-colors"
+                className="py-3 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold rounded-xl text-xs sm:text-sm cursor-pointer transition-colors"
               >
                 Cancel
               </button>
@@ -871,7 +872,7 @@ export default function App() {
       {toastMessage && (
         <div
           id="global-tracker-toast"
-          className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-850 text-white dark:bg-slate-100 dark:text-slate-900 shadow-2xl px-5 py-3 rounded-2xl font-mono text-xs font-semibold z-55 flex items-center gap-2 border border-slate-750 dark:border-slate-205 animate-slideUp"
+          className="fixed bottom-24 left-1/2 -translate-x-1/2 bg-slate-800 text-white dark:bg-slate-100 dark:text-slate-900 shadow-2xl px-5 py-3 rounded-2xl font-mono text-xs font-semibold z-55 flex items-center gap-2 border border-slate-700 dark:border-slate-200 animate-slideUp"
         >
           <Sparkles className="w-4 h-4 text-amber-400 dark:text-amber-500 animate-pulse" />
           <span>{toastMessage}</span>

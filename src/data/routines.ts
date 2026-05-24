@@ -20,7 +20,7 @@ export const DEFAULT_ROUTINES: Routine[] = [
         isSuperset: true,
         targetMuscle: "Chest & Triceps",
         setup: "Place the resistance band across your upper back, looping it under your armpits, and secure both ends firmly under your palms on the floor.",
-        form: "Maintain a straight-line plank from head to heels. Lower your chest until it hover just above the floor.",
+        form: "Maintain a straight-line plank from head to heels. Lower your chest until it hovers just above the floor.",
         cues: [
           "Highly controlled 3-second eccentric phase on the way down.",
           "Keep elbows tucked at a 45-degree angle to protect your shoulders.",
@@ -96,7 +96,7 @@ export const DEFAULT_ROUTINES: Routine[] = [
         cues: [
           "Raise your arms 30 degrees forward from your sides (the scapular plane).",
           "This alignment matches the natural angle of the shoulder blades, reducing subacromial joint stress.",
-          "Pour the 'pitchers of water' slightly at the top, pointing your knuckles outward."
+          "Lead with your elbows and keep your pinkies slightly higher than your thumbs at the top."
         ]
       },
       {
@@ -132,7 +132,7 @@ export const DEFAULT_ROUTINES: Routine[] = [
         cues: [
           "Keep elbows tucked firmly to your ribs—do not let them drift forward or flare out.",
           "Squeeze the biceps hard at the peak of the contraction.",
-          "Avert swinging your torso; keep the posture rigid."
+          "Avoid swinging your torso; keep the posture rigid."
         ]
       },
       {
@@ -389,7 +389,7 @@ export const DEFAULT_ROUTINES: Routine[] = [
         cues: [
           "Stand on the band with your opposite foot. Raise your arms 30 degrees forward from your sides (the scapular plane).",
           "This alignment matches the natural angle of the shoulder blades, reducing subacromial joint stress.",
-          "Keep the lateral deltoid under continuous load without letting public traps engage."
+          "Keep the lateral deltoid under continuous load without letting upper traps engage."
         ]
       },
       {
@@ -401,7 +401,7 @@ export const DEFAULT_ROUTINES: Routine[] = [
         defaultReps: 12,
         pairing: "D1",
         targetMuscle: "Biceps & Brachialis",
-        setup: "Stand on the band with feet close. Hold the handles with your wrists.",
+        setup: "Stand on the band with feet close. Hold the handles with your hands.",
         form: "First, perform fully supinated (palms up) curls to failure. Then immediately switch grip to hammer (palms facing each other) and curl to failure again.",
         cues: [
           "Supinated band curl to failure (≈10–12 reps) → immediately switch to hammer curl to failure.",

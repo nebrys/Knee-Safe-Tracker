@@ -113,7 +113,7 @@ export function ExerciseCard({
       {/* Target & Rest Row */}
       <div className="grid grid-cols-2 gap-2 border-t border-slate-100 dark:border-slate-800/80 pt-3.5 pb-2">
         <div className="flex flex-col">
-          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.05em]">Goal Reps</span>
+          <span className="text-[10px] text-slate-400 dark:text-slate-500 font-bold uppercase tracking-[0.05em]">{exTemplate.isHold ? "Goal Time" : "Goal Reps"}</span>
           <span className="font-mono text-sm font-semibold text-slate-700 dark:text-slate-300">{exState.targetReps}</span>
         </div>
         <div className="flex flex-col text-right">
@@ -142,7 +142,7 @@ export function ExerciseCard({
             type="number"
             value={exState.selectedReps}
             onChange={(e) => onManualReps(exoIndex, e.target.value)}
-            className="w-12 text-center text-sm font-bold text-slate-850 dark:text-slate-100 bg-transparent border-0 outline-none focus:ring-0 focus:outline-none [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
+            className="w-12 text-center text-sm font-bold text-slate-800 dark:text-slate-100 bg-transparent border-0 outline-none focus:ring-0 focus:outline-none [-moz-appearance:_textfield] [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none"
           />
 
           <button

@@ -181,8 +181,8 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
       const latestCompletedSets = latest.completedSets;
       const prevCompletedSets = previous.completedSets;
 
-      // Calculate total reps inside completed sets
-      const sumReps = (item: HistoryItem) => {
+      // Calculate total work/reps inside completed sets
+      const sumWorkUnits = (item: HistoryItem) => {
         let total = 0;
         item.exercises.forEach(ex => {
           ex.sets.forEach(s => {
@@ -192,24 +192,24 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
         return total;
       };
 
-      const latestReps = sumReps(latest);
-      const prevReps = sumReps(previous);
+      const latestUnits = sumWorkUnits(latest);
+      const prevUnits = sumWorkUnits(previous);
 
-      if (latestCompletedSets > prevCompletedSets || latestReps > prevReps) {
+      if (latestCompletedSets > prevCompletedSets || latestUnits > prevUnits) {
         analysisResults.push({
           routineName: latest.routineName,
           latestDate: latest.date,
           status: "progress",
           title: "📈 Progressive Overload Achieved!",
-          description: `You logged ${latestCompletedSets} sets (${latestReps} reps) compared to ${prevCompletedSets} sets (${prevReps} reps) previously. Mechanical load increased!`,
+          description: `You logged ${latestCompletedSets} sets (${latestUnits} work units) compared to ${prevCompletedSets} sets (${prevUnits} units) previously. Mechanical load increased!`,
         });
-      } else if (latestCompletedSets === prevCompletedSets && latestReps === prevReps) {
+      } else if (latestCompletedSets === prevCompletedSets && latestUnits === prevUnits) {
         analysisResults.push({
           routineName: latest.routineName,
           latestDate: latest.date,
           status: "stable",
           title: "⚖️ Workload Consistently Maintained",
-          description: `Matched previous stats of ${latestCompletedSets} sets exactly. Perfect consistency for consolidation!`,
+          description: `Matched previous stats of ${latestCompletedSets} sets and ${latestUnits} total units exactly. Perfect consistency for consolidation!`,
         });
       } else {
         analysisResults.push({
@@ -217,7 +217,7 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
           latestDate: latest.date,
           status: "regression",
           title: "⚠️ Deload or Caution Applied",
-          description: `Logged fewer reps or sets (${latestCompletedSets} sets vs ${prevCompletedSets} sets previously). This acts as a joint-preserving protective mechanism. Avoid tendon irritation!`,
+          description: `Logged lighter load (${latestCompletedSets} sets vs ${prevCompletedSets} sets previously). This acts as a joint-preserving protective mechanism. Avoid tendon irritation!`,
         });
       }
     });
@@ -301,22 +301,22 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
           </div>
         </div>
 
-        {/* KPI: Total Active Reps */}
+        {/* KPI: Total Active Load Units */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 sm:p-5 flex flex-col justify-between shadow-sm relative overflow-hidden">
           <div className="flex justify-between items-start mb-3">
             <div>
-              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">7-Day Total Repetitions</span>
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block">7-Day Total Load Units</span>
               <span className="text-3xl font-extrabold text-slate-900 dark:text-slate-50 font-display">
                 {totalRepsSevenDays}
               </span>
-              <span className="text-xs text-slate-500 block mt-1">total recorded reps</span>
+              <span className="text-xs text-slate-500 block mt-1">total recorded work units (reps/sec)</span>
             </div>
             <div className="p-2.5 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-xl">
               <Zap className="w-5 h-5" />
             </div>
           </div>
           <div className="text-[10px] sm:text-xs text-slate-450 dark:text-slate-400 border-t border-slate-50 dark:border-slate-800/50 pt-2.5 font-medium leading-relaxed">
-            Rep loading targets metabolic circulation inside surrounding tissues.
+            Mechanical loading targets metabolic circulation inside surrounding tissues.
           </div>
         </div>
 
@@ -326,11 +326,11 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 border-b border-slate-100 dark:border-slate-800/80 pb-4">
           <div>
-            <h4 className="font-display font-extrabold text-sm sm:text-base text-slate-850 dark:text-slate-100 flex items-center gap-1.5">
+            <h4 className="font-display font-extrabold text-sm sm:text-base text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
               <Activity className="w-4 h-4 text-brand-500 animate-pulse" />
               Training Volume Distribution
             </h4>
-            <p className="text-xs text-slate-550 dark:text-slate-450">
+            <p className="text-xs text-slate-500 dark:text-slate-400">
               {timeRange === "7d"
                 ? "Daily sets over the last 7 calendar days"
                 : timeRange === "30d"
@@ -360,11 +360,11 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
           </div>
         </div>
 
-        <div className="flex items-center justify-between mb-4 bg-slate-50/50 dark:bg-slate-950/20 px-4 py-2.5 rounded-xl border border-slate-100 dark:border-slate-805/50">
+        <div className="flex items-center justify-between mb-4 bg-slate-50/50 dark:bg-slate-950/20 px-4 py-2.5 rounded-xl border border-slate-100 dark:border-slate-800/50">
           <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">
             Active Period: <span className="font-bold text-slate-700 dark:text-slate-300 uppercase shrink-0">{timeRange === '7d' ? 'Last week' : timeRange === '30d' ? 'Last Month' : 'Last 90 Days'}</span>
           </span>
-          <span className="text-xs font-mono font-black bg-brand-500/10 text-brand-650 dark:text-brand-455 px-3 py-1 rounded-lg border border-brand-500/10">
+          <span className="text-xs font-mono font-black bg-brand-500/10 text-brand-600 dark:text-brand-400 px-3 py-1 rounded-lg border border-brand-500/10">
             Completed: {rangeCompletedSets} sets
           </span>
         </div>
@@ -420,7 +420,7 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
                           </div>
                           {data.reps > 0 && (
                             <div className="flex justify-between gap-4 font-mono mt-0.5">
-                              <span className="text-slate-400 font-bold">Reps done:</span>
+                              <span className="text-slate-400 font-bold">Total Load Units:</span>
                               <span className="font-extrabold">{data.reps}</span>
                             </div>
                           )}
@@ -461,10 +461,10 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
       {/* Progressive Overload Showcase Card (Progress vs. the Opposite) */}
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm space-y-4">
         <div>
-          <h4 className="font-display font-extrabold text-sm sm:text-base text-slate-850 dark:text-slate-100">
+          <h4 className="font-display font-extrabold text-sm sm:text-base text-slate-800 dark:text-slate-100">
             Progressive Overload & Stable Knee Adaptation Logs
           </h4>
-          <p className="text-xs text-slate-550 dark:text-slate-450">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             Evaluating mechanical load metrics from consecutive identical workout variants
           </p>
         </div>
@@ -487,10 +487,10 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
                 >
                   <div className="space-y-1 max-w-xl">
                     <div className="flex flex-wrap items-center gap-1.5">
-                      <span className="text-xs font-bold uppercase tracking-wider bg-slate-150 dark:bg-slate-800 border border-slate-200/50 dark:border-slate-700 text-slate-700 dark:text-slate-350 px-2 py-0.5 rounded">
+                      <span className="text-xs font-bold uppercase tracking-wider bg-slate-100 dark:bg-slate-800 border border-slate-200/50 dark:border-slate-700 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded">
                         {report.routineName}
                       </span>
-                      <span className="text-[10px] text-slate-400 dark:text-slate-550 font-medium">{report.latestDate}</span>
+                      <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">{report.latestDate}</span>
                     </div>
                     <span className="font-bold text-xs sm:text-sm block">
                       {report.title}
@@ -531,8 +531,8 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
         coachFeedback.status === "alert" 
           ? "bg-rose-50 border-rose-100 dark:bg-rose-950/10 dark:border-rose-950/40"
           : coachFeedback.status === "warning"
-          ? "bg-amber-50 border-amber-100 dark:bg-amber-950/10 dark:border-amber-955/40"
-          : "bg-emerald-50 border-emerald-150 dark:bg-emerald-950/10 dark:border-emerald-955/40"
+          ? "bg-amber-50 border-amber-100 dark:bg-amber-950/10 dark:border-amber-900/40"
+          : "bg-emerald-50 border-emerald-100 dark:bg-emerald-950/10 dark:border-emerald-900/40"
       }`}>
         <div className={`p-2.5 rounded-xl shrink-0 ${
           coachFeedback.status === "alert"
@@ -557,7 +557,7 @@ export function WeeklyProgress({ history, onAddRecoverySession }: WeeklyProgress
           }`}>
             {coachFeedback.title}
           </h4>
-          <p className="text-xs sm:text-sm text-slate-705 dark:text-slate-350 leading-relaxed font-semibold mt-1">
+          <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-semibold mt-1">
             {coachFeedback.desc}
           </p>
         </div>

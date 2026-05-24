@@ -84,7 +84,7 @@ export function HistorySection({
   if (history.length === 0) {
     return (
       <div id="history-empty-state" className="flex flex-col items-center justify-center text-center py-16 px-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm">
-        <div className="w-16 h-16 rounded-full bg-slate-50 dark:bg-slate-850 flex items-center justify-center text-slate-400 dark:text-slate-500 mb-4 border border-slate-100 dark:border-slate-800 animate-pulse">
+        <div className="w-16 h-16 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-400 dark:text-slate-500 mb-4 border border-slate-100 dark:border-slate-800 animate-pulse">
           <History className="w-8 h-8" />
         </div>
         <h3 className="font-display font-bold text-lg text-slate-800 dark:text-slate-200 mb-1">
@@ -101,7 +101,7 @@ export function HistorySection({
     <div className="space-y-4">
       {/* List Header stats */}
       <div className="flex items-center justify-between px-1">
-        <span className="text-xs font-bold uppercase tracking-widest text-slate-450 dark:text-slate-555 flex items-center gap-1">
+        <span className="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 flex items-center gap-1">
           <ListFilter className="w-4 h-4 text-brand-500" /> History Entries ({history.length})
         </span>
       </div>
@@ -123,10 +123,10 @@ export function HistorySection({
                 {/* Information summary */}
                 <div className="flex-1 min-w-0">
                   <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                    <span className="font-display font-extrabold text-sm sm:text-base text-slate-850 dark:text-slate-100 flex items-center gap-1.5">
+                    <span className="font-display font-extrabold text-sm sm:text-base text-slate-800 dark:text-slate-100 flex items-center gap-1.5">
                       <Calendar className="w-4 h-4 text-slate-400 shrink-0" /> {item.date}
                     </span>
-                    <span className="inline-flex text-[10px] font-bold uppercase tracking-wider bg-brand-500 text-white dark:bg-brand-550 px-2 py-0.5 rounded-md shadow-sm">
+                    <span className="inline-flex text-[10px] font-bold uppercase tracking-wider bg-brand-500 text-white dark:bg-brand-600 px-2 py-0.5 rounded-md shadow-sm">
                       {item.routineName}
                     </span>
                   </div>
@@ -150,7 +150,7 @@ export function HistorySection({
                   <button
                     id={`btn-delete-history-${item.id}`}
                     onClick={() => setDeleteTargetId(item.id)}
-                    className="p-2 text-slate-400 hover:text-rose-650 dark:text-slate-500 dark:hover:text-rose-400 hover:bg-slate-50 dark:hover:bg-slate-800/65 rounded-xl transition-all cursor-pointer"
+                    className="p-2 text-slate-400 hover:text-rose-600 dark:text-slate-500 dark:hover:text-rose-400 hover:bg-slate-50 dark:hover:bg-slate-800/65 rounded-xl transition-all cursor-pointer"
                     title="Delete workout entry"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -158,7 +158,7 @@ export function HistorySection({
 
                   <button
                     onClick={() => toggleAccordion(item.id)}
-                    className="p-2 text-slate-450 dark:text-slate-500 hover:bg-slate-55 dark:hover:bg-slate-800/65 rounded-xl transition-colors"
+                    className="p-2 text-slate-400 dark:text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800/65 rounded-xl transition-colors"
                   >
                     {isExpanded ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
                   </button>
@@ -174,7 +174,7 @@ export function HistorySection({
                         key={eIdx}
                         className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 py-2 first:pt-1 last:pb-1"
                       >
-                        <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-350 max-w-[280px]">
+                        <span className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300 max-w-[280px]">
                           {exo.name}
                         </span>
                         
@@ -182,16 +182,17 @@ export function HistorySection({
                         <div className="flex flex-wrap items-center gap-1.5">
                           {exo.sets.map((s, sIdx) => {
                             const isCheck = s !== null;
+                            const unit = exo.isHold ? "s" : "r";
                             return (
                               <span
                                 key={sIdx}
                                 className={`text-[10px] sm:text-xs font-mono px-2 py-0.5 rounded-md border ${
                                   isCheck
-                                    ? "bg-emerald-50 dark:bg-emerald-900/25 border-emerald-200/50 dark:border-emerald-800 text-emerald-700 dark:text-emerald-450 font-bold"
-                                    : "bg-slate-100 dark:bg-slate-805 border-slate-200/40 dark:border-slate-700/80 text-slate-400"
+                                    ? "bg-emerald-50 dark:bg-emerald-900/25 border-emerald-200/50 dark:border-emerald-800 text-emerald-700 dark:text-emerald-400 font-bold"
+                                    : "bg-slate-100 dark:bg-slate-800 border-slate-200/40 dark:border-slate-700/80 text-slate-400"
                                 }`}
                               >
-                                {isCheck ? `${s}r` : "—"}
+                                {isCheck ? `${s}${unit}` : "—"}
                               </span>
                             );
                           })}
@@ -221,8 +222,8 @@ export function HistorySection({
         {importStatus && (
           <div className={`p-2.5 rounded-xl border text-[11px] sm:text-xs font-semibold flex items-center gap-2 animate-fadeIn ${
             importStatus.type === "success" 
-              ? "bg-emerald-500/10 border-emerald-250/20 text-emerald-600 dark:text-emerald-400" 
-              : "bg-rose-500/10 border-rose-250/20 text-rose-600 dark:text-rose-400"
+              ? "bg-emerald-500/10 border-emerald-200/20 text-emerald-600 dark:text-emerald-400" 
+              : "bg-rose-500/10 border-rose-200/20 text-rose-600 dark:text-rose-400"
           }`}>
             <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{importStatus.msg}</span>
@@ -233,7 +234,7 @@ export function HistorySection({
           {/* Export click */}
           <button
             onClick={handleExportData}
-            className="flex-1 py-2.5 px-3 bg-white dark:bg-slate-850 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 text-slate-700 dark:text-slate-200 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all"
+            className="flex-1 py-2.5 px-3 bg-white dark:bg-slate-800 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 text-slate-700 dark:text-slate-200 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all"
           >
             <Download className="w-3.5 h-3.5 text-slate-500" />
             Export History (.json)
@@ -242,7 +243,7 @@ export function HistorySection({
           {/* Import label triggering hiddden file input */}
           <label
             htmlFor="restore-workout-logs-file-input"
-            className="flex-1 py-2.5 px-3 bg-white dark:bg-slate-850 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 text-slate-700 dark:text-slate-200 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all text-center"
+            className="flex-1 py-2.5 px-3 bg-white dark:bg-slate-800 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 text-slate-700 dark:text-slate-200 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer shadow-sm transition-all text-center"
           >
             <Upload className="w-3.5 h-3.5 text-slate-500" />
             Import/Restore (.json)
@@ -265,14 +266,14 @@ export function HistorySection({
             setPruneInputValue("20");
             setIsPruneConfirmOpen(true);
           }}
-          className="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-850 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition-all text-center cursor-pointer"
+          className="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition-all text-center cursor-pointer"
         >
           Prune Archive (Keep Recent N)
         </button>
         <button
           id="btn-clear-history"
           onClick={() => setIsNukeConfirmOpen(true)}
-          className="flex-1 py-3 px-4 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/20 dark:hover:bg-rose-955/25 text-rose-600 dark:text-rose-450 border border-rose-200/50 dark:border-rose-900/50 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition-all text-center cursor-pointer"
+          className="flex-1 py-3 px-4 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/20 dark:hover:bg-rose-900/25 text-rose-600 dark:text-rose-400 border border-rose-200/50 dark:border-rose-900/50 rounded-xl font-bold text-xs sm:text-sm shadow-sm transition-all text-center cursor-pointer"
         >
           Nuke History Records
         </button>
@@ -284,7 +285,7 @@ export function HistorySection({
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl relative text-center">
             <button 
               onClick={() => setDeleteTargetId(null)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-350 cursor-pointer"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -293,10 +294,10 @@ export function HistorySection({
               <Trash2 className="w-6 h-6 animate-pulse" />
             </div>
             
-            <h3 className="font-display font-extrabold text-lg text-slate-850 dark:text-slate-100 mb-2">
+            <h3 className="font-display font-extrabold text-lg text-slate-800 dark:text-slate-100 mb-2">
               Delete Workout Log?
             </h3>
-            <p className="text-xs text-slate-555 dark:text-slate-400 mb-5 leading-relaxed">
+            <p className="text-xs text-slate-500 dark:text-slate-400 mb-5 leading-relaxed">
               Are you sure you want to permanently erase this specific workout session archive entry? Your statistics and charts will adjust accordingly.
             </p>
             
@@ -328,16 +329,16 @@ export function HistorySection({
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl relative">
             <button 
               onClick={() => setIsPruneConfirmOpen(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-350 cursor-pointer"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
             
-            <div className="w-12 h-12 rounded-full bg-indigo-50 dark:bg-indigo-950/30 text-indigo-650 dark:text-indigo-400 flex items-center justify-center mb-3">
+            <div className="w-12 h-12 rounded-full bg-indigo-50 dark:bg-indigo-950/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-3">
               <Sparkles className="w-6 h-6 animate-pulse" />
             </div>
             
-            <h3 className="font-display font-extrabold text-lg text-slate-850 dark:text-slate-100 mb-1">
+            <h3 className="font-display font-extrabold text-lg text-slate-800 dark:text-slate-100 mb-1">
               Prune Routine Logs
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400 mb-4 leading-relaxed">
@@ -366,7 +367,7 @@ export function HistorySection({
             <div className="flex gap-3">
               <button
                 onClick={() => setIsPruneConfirmOpen(false)}
-                className="flex-1 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-55 dark:hover:bg-slate-800 text-xs font-bold cursor-pointer transition-all"
+                className="flex-1 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs font-bold cursor-pointer transition-all"
               >
                 Cancel
               </button>
@@ -379,7 +380,7 @@ export function HistorySection({
                   }
                   setIsPruneConfirmOpen(false);
                 }}
-                className="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-650/10 cursor-pointer transition-all"
+                className="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md shadow-indigo-600/10 cursor-pointer transition-all"
               >
                 Prune History
               </button>
@@ -394,7 +395,7 @@ export function HistorySection({
           <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl relative text-center">
             <button 
               onClick={() => setIsNukeConfirmOpen(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-350 cursor-pointer animate-none"
+              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:text-slate-500 dark:hover:text-slate-300 cursor-pointer animate-none"
             >
               <X className="w-5 h-5" />
             </button>
@@ -403,7 +404,7 @@ export function HistorySection({
               <AlertCircle className="w-8 h-8 animate-bounce text-rose-600" />
             </div>
             
-            <h3 className="font-display font-black text-lg text-slate-850 dark:text-slate-100 mb-2">
+            <h3 className="font-display font-black text-lg text-slate-800 dark:text-slate-100 mb-2">
               DANGER: Wipe History?
             </h3>
             <p className="text-xs text-rose-600 dark:text-rose-400 font-bold bg-rose-500/10 rounded-xl p-2.5 mb-4 leading-relaxed">
@@ -426,7 +427,7 @@ export function HistorySection({
                   onClearAll();
                   setIsNukeConfirmOpen(false);
                 }}
-                className="flex-1 py-2.5 rounded-xl bg-rose-650 hover:bg-rose-700 text-white text-xs font-black shadow-md shadow-rose-600/10 cursor-pointer transition-all"
+                className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black shadow-md shadow-rose-600/10 cursor-pointer transition-all"
               >
                 YES, RESET ALL!
               </button>

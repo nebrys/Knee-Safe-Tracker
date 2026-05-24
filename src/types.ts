@@ -51,6 +51,7 @@ export interface HistoryItem {
   totalSets: number;
   exercises: {
     name: string;
+    isHold?: boolean;
     sets: (number | null)[];
   }[];
 }
