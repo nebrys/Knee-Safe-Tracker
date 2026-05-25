@@ -31,6 +31,7 @@ export function HistorySection({
   const [importStatus, setImportStatus] = useState<{ type: "success" | "error"; msg: string } | null>(null);
   
   const [isCopied, setIsCopied] = useState(false);
+  const [includeHeaders, setIncludeHeaders] = useState(false);
 
   const toggleAccordion = (id: string) => {
     setExpandedId(prev => (prev === id ? null : id));
@@ -55,9 +56,11 @@ export function HistorySection({
 
   const handleCopyToClipboard = async () => {
     try {
-      // No headers so you can seamlessly paste into the next empty row in your Google Sheet 
-      // without interrupting your data with random header rows.
       let tsv = "";
+      if (includeHeaders) {
+        // Include exhaustive headers for robust Google Sheets analysis (volume, reps, type)
+        tsv += "Date\tTime\tRoutine Name\tExercise Name\tExercise Type\tSets Completed\tTotal Volume\tSet 1\tSet 2\tSet 3\tSet 4\tSet 5\tSet 6\n";
+      }
 
       // Sort oldest-first so that when you append to your sheet, the timeline continues naturally.
       const chronologicalHistory = [...history].sort((a, b) => a.timestamp - b.timestamp);
@@ -68,15 +71,24 @@ export function HistorySection({
         const timeStr = sessionDate.toLocaleTimeString("en-US", { hour: '2-digit', minute:'2-digit' });
 
         session.exercises.forEach((exercise) => {
-          exercise.sets.forEach((reps, setIndex) => {
-            if (reps !== null) {
-              const routineName = session.routineName;
-              const exerciseName = exercise.name;
-              const isHold = exercise.isHold ? "Yes" : "No";
-              
-              tsv += `${dateStr}\t${timeStr}\t${routineName}\t${exerciseName}\t${setIndex + 1}\t${reps}\t${isHold}\n`;
-            }
-          });
+          const completedSets = exercise.sets.filter((r): r is number => r !== null);
+          if (completedSets.length === 0) return;
+
+          const routineName = session.routineName;
+          const exerciseName = exercise.name;
+          const exerciseType = exercise.isHold ? "Duration (s)" : "Reps";
+          const setsCompletedCount = completedSets.length;
+          const totalVolume = completedSets.reduce((sum, val) => sum + val, 0);
+
+          // Pad out to 6 sets for horizontal set tracking in Google Sheets
+          const s1 = completedSets[0] ?? "";
+          const s2 = completedSets[1] ?? "";
+          const s3 = completedSets[2] ?? "";
+          const s4 = completedSets[3] ?? "";
+          const s5 = completedSets[4] ?? "";
+          const s6 = completedSets[5] ?? "";
+
+          tsv += `${dateStr}\t${timeStr}\t${routineName}\t${exerciseName}\t${exerciseType}\t${setsCompletedCount}\t${totalVolume}\t${s1}\t${s2}\t${s3}\t${s4}\t${s5}\t${s6}\n`;
         });
       });
 
@@ -290,6 +302,17 @@ export function HistorySection({
               </>
             )}
           </button>
+          <label className="flex items-center gap-2 cursor-pointer pt-1 px-1 justify-center">
+            <input
+              type="checkbox"
+              checked={includeHeaders}
+              onChange={(e) => setIncludeHeaders(e.target.checked)}
+              className="rounded text-brand-500 focus:ring-brand-500 w-4 h-4 cursor-pointer"
+            />
+            <span className="text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400">
+              Include Headers (Check this only for your first paste)
+            </span>
+          </label>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-2">
