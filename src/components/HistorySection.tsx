@@ -68,7 +68,10 @@ export function HistorySection({
 
       chronologicalHistory.forEach((session) => {
         const sessionDate = new Date(session.timestamp);
-        const dateStr = sessionDate.toLocaleDateString("en-US");
+        const year = sessionDate.getFullYear();
+        const month = String(sessionDate.getMonth() + 1).padStart(2, '0');
+        const day = String(sessionDate.getDate()).padStart(2, '0');
+        const dateStr = `${year}-${month}-${day}`;
         const timeStr = sessionDate.toLocaleTimeString("en-US", { hour: '2-digit', minute:'2-digit' });
 
         // Retrieve routine to find exercise template
