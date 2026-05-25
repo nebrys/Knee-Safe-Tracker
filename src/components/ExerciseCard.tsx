@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import { Info, Edit2, ChevronDown, ChevronUp, Sparkles, AlertCircle, Dumbbell, ShieldCheck } from "lucide-react";
 import { ActiveExerciseState, Exercise } from "../types";
 
+export const AMRAP_EXERCISES = [
+  "Banded Pushup",
+  "Inverted Row (Neutral-Grip)",
+  "Single-Leg Banded Romanian Deadlift (SL RDL)",
+  "Banded Shoulder Press (Self-Anchored)",
+  "Supine Swiss Ball Hamstring Curl"
+];
+
 interface ExerciseCardProps {
   key?: React.Key;
   exState: ActiveExerciseState;
@@ -11,6 +19,7 @@ interface ExerciseCardProps {
   onAdjustReps: (exoIndex: number, amount: number) => void;
   onManualReps: (exoIndex: number, value: string) => void;
   onToggleSet: (exoIndex: number, setIndex: number) => void;
+  onToggleAmrap: (exoIndex: number, isAmrap: boolean) => void;
 }
 
 export function ExerciseCard({
@@ -21,9 +30,11 @@ export function ExerciseCard({
   onAdjustReps,
   onManualReps,
   onToggleSet,
+  onToggleAmrap,
 }: ExerciseCardProps) {
   const [isOpenInfo, setIsOpenInfo] = useState(false);
   const [isOpenMobile, setIsOpenMobile] = useState(false);
+  const isAmrapEligible = AMRAP_EXERCISES.includes(exState.name);
 
   // Derive coloring and tags for supersets
   const getPairingStyles = (pairing?: string) => {
@@ -179,6 +190,23 @@ export function ExerciseCard({
           );
         })}
       </div>
+
+      {/* Conditional AMRAP Toggle UI */}
+      {isAmrapEligible && (
+        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800/80">
+          <label className="flex items-center gap-2.5 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={!!exState.isAmrap}
+              onChange={(e) => onToggleAmrap(exoIndex, e.target.checked)}
+              className="w-4 h-4 rounded text-brand-500 focus:ring-brand-500 focus:ring-offset-0 border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 cursor-pointer"
+            />
+            <span className="text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300">
+              Was the final set an AMRAP (to technical failure)?
+            </span>
+          </label>
+        </div>
+      )}
 
       {/* Biomechanical Active Info Overlay Guide (Displayed OVER the card) */}
       {isOpenInfo && (

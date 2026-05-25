@@ -33,6 +33,7 @@ export interface ActiveExerciseState {
   targetReps: string;
   selectedReps: number;
   loggedSets: (number | null)[]; // reps completed for each set, or null if not done
+  isAmrap?: boolean;
 }
 
 export interface ActiveSession {
@@ -53,5 +54,6 @@ export interface HistoryItem {
     name: string;
     isHold?: boolean;
     sets: (number | null)[];
+    isAmrap?: boolean;
   }[];
 }

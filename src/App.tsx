@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { DEFAULT_ROUTINES, ROUTINE_VERSION } from "./data/routines";
 import { Header } from "./components/Header";
 import { PrepSection } from "./components/PrepSection";
+import { McgillSection } from "./components/McgillSection";
 import { ExerciseCard } from "./components/ExerciseCard";
 import { SupersetCard } from "./components/SupersetCard";
 import { FloatingTimer } from "./components/FloatingTimer";
@@ -50,7 +51,7 @@ export default function App() {
   });
 
   // Active navigation tab
-  const [activeTab, setActiveTab] = useState<"workout" | "progress" | "history">("workout");
+  const [activeTab, setActiveTab] = useState<"mcgill" | "workout" | "progress" | "history">("workout");
 
   // Selected routine ID
   const [selectedRoutineId, setSelectedRoutineId] = useState<string>(() => {
@@ -268,6 +269,18 @@ export default function App() {
     }
   };
 
+  // Handle toggle AMRAP
+  const handleToggleAmrap = (exoIndex: number, isAmrap: boolean) => {
+    setCurrentWorkoutState(prev => {
+      return prev.map((item, idx) => {
+        if (idx === exoIndex) {
+          return { ...item, isAmrap };
+        }
+        return item;
+      });
+    });
+  };
+
   // Group workout items for layout rendering (supersets grouped, singles distinct)
   const getWorkoutGroups = (): WorkoutGroup[] => {
     const activeRoutine = routines.find(r => r.id === selectedRoutineId);
@@ -478,6 +491,7 @@ export default function App() {
         name: ex.name,
         isHold: targetRoutine.exercises.find(e => e.id === ex.exerciseId)?.isHold,
         sets: [...ex.loggedSets],
+        isAmrap: ex.isAmrap,
       })),
     };
 
@@ -609,11 +623,22 @@ export default function App() {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-6">
         
         {/* Navigation Tabs Switcher */}
-        <div className="flex bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 rounded-2xl shadow-sm mb-6 max-w-md mx-auto">
+        <div className="flex bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-1 rounded-2xl shadow-sm mb-6 max-w-2xl mx-auto overflow-x-auto">
+          <button
+            onClick={() => setActiveTab("mcgill")}
+            id="tab-btn-mcgill"
+            className={`flex-1 min-w-max py-2.5 px-3 sm:px-4 rounded-xl font-display font-bold text-xs sm:text-sm text-center transition-all cursor-pointer ${
+              activeTab === "mcgill"
+                ? "bg-brand-500 text-white shadow-md shadow-brand-500/10"
+                : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
+            }`}
+          >
+            McGill Series
+          </button>
           <button
             onClick={() => setActiveTab("workout")}
             id="tab-btn-workout"
-            className={`flex-1 py-2.5 px-2 sm:px-4 rounded-xl font-display font-bold text-xs sm:text-sm text-center transition-all cursor-pointer ${
+            className={`flex-1 min-w-max py-2.5 px-3 sm:px-4 rounded-xl font-display font-bold text-xs sm:text-sm text-center transition-all cursor-pointer ${
               activeTab === "workout"
                 ? "bg-brand-500 text-white shadow-md shadow-brand-500/10"
                 : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
@@ -624,7 +649,7 @@ export default function App() {
           <button
             onClick={() => setActiveTab("progress")}
             id="tab-btn-progress"
-            className={`flex-1 py-2.5 px-2 sm:px-4 rounded-xl font-display font-bold text-xs sm:text-sm text-center transition-all cursor-pointer ${
+            className={`flex-1 min-w-max py-2.5 px-3 sm:px-4 rounded-xl font-display font-bold text-xs sm:text-sm text-center transition-all cursor-pointer ${
               activeTab === "progress"
                 ? "bg-brand-500 text-white shadow-md shadow-brand-500/10"
                 : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
@@ -635,7 +660,7 @@ export default function App() {
           <button
             onClick={() => setActiveTab("history")}
             id="tab-btn-history"
-            className={`flex-1 py-2.5 px-2 sm:px-4 rounded-xl font-display font-bold text-xs sm:text-sm text-center transition-all cursor-pointer ${
+            className={`flex-1 min-w-max py-2.5 px-3 sm:px-4 rounded-xl font-display font-bold text-xs sm:text-sm text-center transition-all cursor-pointer ${
               activeTab === "history"
                 ? "bg-brand-500 text-white shadow-md shadow-brand-500/10"
                 : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300"
@@ -644,6 +669,11 @@ export default function App() {
             History Logs
           </button>
         </div>
+
+        {/* MCGILL TAB */}
+        {activeTab === "mcgill" && (
+          <McgillSection />
+        )}
 
         {/* WORKOUT INTERACTIVE PANEL */}
         {activeTab === "workout" && (
@@ -734,6 +764,7 @@ export default function App() {
                         onAdjustReps={handleAdjustReps}
                         onManualReps={handleManualReps}
                         onToggleSupersetSet={handleToggleSupersetSet}
+                        onToggleAmrap={handleToggleAmrap}
                       />
                     );
                   } else {
@@ -749,6 +780,7 @@ export default function App() {
                         onAdjustReps={handleAdjustReps}
                         onManualReps={handleManualReps}
                         onToggleSet={handleToggleSet}
+                        onToggleAmrap={handleToggleAmrap}
                       />
                     );
                   }
@@ -782,6 +814,7 @@ export default function App() {
         {activeTab === "history" && (
           <HistorySection
             history={history}
+            routines={routines}
             onDeleteRow={handleDeleteRow}
             onPruneHistory={handlePruneHistory}
             onClearAll={handleClearAllHistory}

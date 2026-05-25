@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { HistoryItem } from "../types";
+import { HistoryItem, Routine } from "../types";
 import { Trash2, Calendar, Award, ChevronDown, ChevronUp, History, ListFilter, AlertCircle, Sparkles, X, Hammer, Download, Upload, Copy, Check } from "lucide-react";
 
 interface HistorySectionProps {
   history: HistoryItem[];
+  routines?: Routine[];
   onDeleteRow: (id: string) => void;
   onPruneHistory: (count: number) => void;
   onClearAll: () => void;
@@ -12,6 +13,7 @@ interface HistorySectionProps {
 
 export function HistorySection({
   history,
+  routines = [],
   onDeleteRow,
   onPruneHistory,
   onClearAll,
@@ -58,8 +60,7 @@ export function HistorySection({
     try {
       let tsv = "";
       if (includeHeaders) {
-        // Include exhaustive headers for robust Google Sheets analysis (volume, reps, type)
-        tsv += "Date\tTime\tRoutine Name\tExercise Name\tExercise Type\tSets Completed\tTotal Volume\tSet 1\tSet 2\tSet 3\tSet 4\tSet 5\tSet 6\n";
+        tsv += "Date\tTime\tRoutine Name\tExercise Name\tMuscles Worked\tTarget Range\tExercise Type\tSet 1\tSet 2\tSet 3\tSet 4\tSet 5\tSet 6\tAMRAP Set?\n";
       }
 
       // Sort oldest-first so that when you append to your sheet, the timeline continues naturally.
@@ -70,15 +71,21 @@ export function HistorySection({
         const dateStr = sessionDate.toLocaleDateString("en-US");
         const timeStr = sessionDate.toLocaleTimeString("en-US", { hour: '2-digit', minute:'2-digit' });
 
+        // Retrieve routine to find exercise template
+        const matchedRoutine = routines?.find(r => r.name === session.routineName || r.id === session.routineId);
+
         session.exercises.forEach((exercise) => {
           const completedSets = exercise.sets.filter((r): r is number => r !== null);
           if (completedSets.length === 0) return;
 
+          // Attempt to find template for muscles and target range
+          const matchedEx = matchedRoutine?.exercises.find(e => e.name === exercise.name);
+          const musclesWorked = matchedEx?.targetMuscle || "N/A";
+          const targetRange = matchedEx?.reps || "N/A";
+
           const routineName = session.routineName;
           const exerciseName = exercise.name;
           const exerciseType = exercise.isHold ? "Duration (s)" : "Reps";
-          const setsCompletedCount = completedSets.length;
-          const totalVolume = completedSets.reduce((sum, val) => sum + val, 0);
 
           // Pad out to 6 sets for horizontal set tracking in Google Sheets
           const s1 = completedSets[0] ?? "";
@@ -87,8 +94,10 @@ export function HistorySection({
           const s4 = completedSets[3] ?? "";
           const s5 = completedSets[4] ?? "";
           const s6 = completedSets[5] ?? "";
+          
+          const amrapString = exercise.isAmrap ? "Yes" : "No";
 
-          tsv += `${dateStr}\t${timeStr}\t${routineName}\t${exerciseName}\t${exerciseType}\t${setsCompletedCount}\t${totalVolume}\t${s1}\t${s2}\t${s3}\t${s4}\t${s5}\t${s6}\n`;
+          tsv += `${dateStr}\t${timeStr}\t${routineName}\t${exerciseName}\t${musclesWorked}\t${targetRange}\t${exerciseType}\t${s1}\t${s2}\t${s3}\t${s4}\t${s5}\t${s6}\t${amrapString}\n`;
         });
       });
 

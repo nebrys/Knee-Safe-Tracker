@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Info, Edit2, ShieldCheck, Dumbbell, Link, Sparkles, HelpCircle, Activity } from "lucide-react";
 import { ActiveExerciseState, Exercise } from "../types";
+import { AMRAP_EXERCISES } from "./ExerciseCard";
 
 interface SupersetCardProps {
   key?: React.Key;
@@ -14,6 +15,7 @@ interface SupersetCardProps {
   onAdjustReps: (exoIndex: number, amount: number) => void;
   onManualReps: (exoIndex: number, value: string) => void;
   onToggleSupersetSet: (originalIndices: number[], setIndex: number) => void;
+  onToggleAmrap: (exoIndex: number, isAmrap: boolean) => void;
 }
 
 export function SupersetCard({
@@ -23,6 +25,7 @@ export function SupersetCard({
   onAdjustReps,
   onManualReps,
   onToggleSupersetSet,
+  onToggleAmrap,
 }: SupersetCardProps) {
   // Local state to keep track of which exercise has its info sheet open
   const [openInfoIndex, setOpenInfoIndex] = useState<number | null>(null);
@@ -188,6 +191,23 @@ export function SupersetCard({
                   </button>
                 </div>
               </div>
+
+              {/* Conditional AMRAP Toggle UI inside Superset */}
+              {AMRAP_EXERCISES.includes(state.name) && (
+                <div className="mt-2 pt-2 border-t border-slate-100/50 dark:border-slate-800/40">
+                  <label className="flex items-center gap-2.5 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={!!state.isAmrap}
+                      onChange={(e) => onToggleAmrap(originalIndex, e.target.checked)}
+                      className="w-3.5 h-3.5 rounded text-brand-500 focus:ring-brand-500 focus:ring-offset-0 border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 cursor-pointer"
+                    />
+                    <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-300">
+                      AMRAP on final set?
+                    </span>
+                  </label>
+                </div>
+              )}
 
               {/* Dynamic Overlay Info Panel Inside */}
               {isInfoOpen && (
