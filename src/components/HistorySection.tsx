@@ -60,7 +60,7 @@ export function HistorySection({
     try {
       let tsv = "";
       if (includeHeaders) {
-        tsv += "Date\tTime\tRoutine Name\tExercise Name\tMuscles Worked\tTarget Range\tExercise Type\tSet 1\tSet 2\tSet 3\tSet 4\tSet 5\tSet 6\tAMRAP Set?\n";
+        tsv += "Date\tTime\tRoutine Name\tExercise Name\tMuscles Worked\tTarget Range\tExercise Type\tSet 1\tSet 2\tSet 3\tSet 4\tAMRAP Set?\n";
       }
 
       // Sort oldest-first so that when you append to your sheet, the timeline continues naturally.
@@ -90,17 +90,15 @@ export function HistorySection({
           const exerciseName = exercise.name;
           const exerciseType = exercise.isHold ? "Duration (s)" : "Reps";
 
-          // Pad out to 6 sets for horizontal set tracking in Google Sheets
+          // Pad out to 4 sets for horizontal set tracking in Google Sheets
           const s1 = completedSets[0] ?? "";
           const s2 = completedSets[1] ?? "";
           const s3 = completedSets[2] ?? "";
           const s4 = completedSets[3] ?? "";
-          const s5 = completedSets[4] ?? "";
-          const s6 = completedSets[5] ?? "";
           
           const amrapString = exercise.isAmrap ? "Yes" : "No";
 
-          tsv += `${dateStr}\t${timeStr}\t${routineName}\t${exerciseName}\t${musclesWorked}\t${targetRange}\t${exerciseType}\t${s1}\t${s2}\t${s3}\t${s4}\t${s5}\t${s6}\t${amrapString}\n`;
+          tsv += `${dateStr}\t${timeStr}\t${routineName}\t${exerciseName}\t${musclesWorked}\t${targetRange}\t${exerciseType}\t${s1}\t${s2}\t${s3}\t${s4}\t${amrapString}\n`;
         });
       });
 
