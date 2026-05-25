@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { HistoryItem } from "../types";
-import { Trash2, Calendar, Award, ChevronDown, ChevronUp, History, ListFilter, AlertCircle, Sparkles, X, Hammer, Download, Upload } from "lucide-react";
+import { Trash2, Calendar, Award, ChevronDown, ChevronUp, History, ListFilter, AlertCircle, Sparkles, X, Hammer, Download, Upload, Copy, Check } from "lucide-react";
 
 interface HistorySectionProps {
   history: HistoryItem[];
@@ -29,6 +29,8 @@ export function HistorySection({
 
   // Import error/success notification
   const [importStatus, setImportStatus] = useState<{ type: "success" | "error"; msg: string } | null>(null);
+  
+  const [isCopied, setIsCopied] = useState(false);
 
   const toggleAccordion = (id: string) => {
     setExpandedId(prev => (prev === id ? null : id));
@@ -48,6 +50,41 @@ export function HistorySection({
       URL.revokeObjectURL(url);
     } catch (err) {
       console.error("Export failed", err);
+    }
+  };
+
+  const handleCopyToClipboard = async () => {
+    try {
+      // No headers so you can seamlessly paste into the next empty row in your Google Sheet 
+      // without interrupting your data with random header rows.
+      let tsv = "";
+
+      // Sort oldest-first so that when you append to your sheet, the timeline continues naturally.
+      const chronologicalHistory = [...history].sort((a, b) => a.timestamp - b.timestamp);
+
+      chronologicalHistory.forEach((session) => {
+        const sessionDate = new Date(session.timestamp);
+        const dateStr = sessionDate.toLocaleDateString("en-US");
+        const timeStr = sessionDate.toLocaleTimeString("en-US", { hour: '2-digit', minute:'2-digit' });
+
+        session.exercises.forEach((exercise) => {
+          exercise.sets.forEach((reps, setIndex) => {
+            if (reps !== null) {
+              const routineName = session.routineName;
+              const exerciseName = exercise.name;
+              const isHold = exercise.isHold ? "Yes" : "No";
+              
+              tsv += `${dateStr}\t${timeStr}\t${routineName}\t${exerciseName}\t${setIndex + 1}\t${reps}\t${isHold}\n`;
+            }
+          });
+        });
+      });
+
+      await navigator.clipboard.writeText(tsv);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
+    } catch (err) {
+      console.error("Clipboard copy failed", err);
     }
   };
 
@@ -231,6 +268,29 @@ export function HistorySection({
             <span>{importStatus.msg}</span>
           </div>
         )}
+
+        <div className="flex flex-col gap-2 mb-2">
+          <button
+            onClick={handleCopyToClipboard}
+            className={`w-full py-3 px-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2 cursor-pointer shadow-md transition-all active:scale-[0.98] ${
+              isCopied 
+                ? "bg-emerald-500 hover:bg-emerald-600 border border-emerald-600 text-white" 
+                : "bg-brand-500 hover:bg-brand-600 border border-brand-600 text-white"
+            }`}
+          >
+            {isCopied ? (
+              <>
+                <Check className="w-5 h-5 text-emerald-100" />
+                Copied to Clipboard!
+              </>
+            ) : (
+              <>
+                <Copy className="w-5 h-5 text-brand-100" />
+                Copy Data for Google Sheets
+              </>
+            )}
+          </button>
+        </div>
 
         <div className="flex flex-col sm:flex-row gap-2">
           {/* Export click */}
