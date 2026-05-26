@@ -692,7 +692,7 @@ export default function App() {
                   id="workout-routine-selector"
                   value={selectedRoutineId}
                   onChange={handleRoutineChange}
-                  className="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-display font-extrabold text-sm sm:text-base px-3.5 py-2.5 rounded-xl border border-slate-200/50 dark:border-slate-700 outline-none focus:ring-2 focus:ring-brand-500/50 w-full md:w-60 cursor-pointer"
+                  className="bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-100 font-display font-extrabold text-sm sm:text-base px-3.5 py-2.5 rounded-xl border border-slate-200/50 dark:border-slate-700 outline-none focus:ring-2 focus:ring-brand-500/50 w-full md:w-80 cursor-pointer"
                 >
                   {routines.map((r) => (
                     <option key={r.id} value={r.id}>

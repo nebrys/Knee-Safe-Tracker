@@ -1,6 +1,6 @@
 import { Routine } from "../types";
 
-export const ROUTINE_VERSION = 7; // incremented to force refresh for the new physiotherapy-focused routines with Calf/Tib superset in Lower 2
+export const ROUTINE_VERSION = 8; // incremented to force refresh for the new physiotherapy-focused routines with Calf/Tib superset in Lower 2 & dropdown layout update
 
 export const DEFAULT_ROUTINES: Routine[] = [
   {
