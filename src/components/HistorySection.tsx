@@ -81,8 +81,18 @@ export function HistorySection({
           const completedSets = exercise.sets.filter((r): r is number => r !== null);
           if (completedSets.length === 0) return;
 
-          // Attempt to find template for muscles and target range
-          const matchedEx = matchedRoutine?.exercises.find(e => e.name === exercise.name);
+          // Attempt to find template for muscles and target range (try matched routine first, fallback to scanning all)
+          let matchedEx = matchedRoutine?.exercises.find(e => e.name === exercise.name);
+          if (!matchedEx) {
+            for (const r of routines) {
+              const found = r.exercises.find(e => e.name === exercise.name);
+              if (found) {
+                matchedEx = found;
+                break;
+              }
+            }
+          }
+          
           const musclesWorked = matchedEx?.targetMuscle || "N/A";
           const targetRange = matchedEx?.reps || "N/A";
 

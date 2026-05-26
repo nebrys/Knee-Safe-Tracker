@@ -5,7 +5,9 @@ import { ActiveExerciseState, Exercise } from "../types";
 export const AMRAP_EXERCISES = [
   "Banded Pushup",
   "Inverted Row (Neutral-Grip)",
+  "Parallel Bar Inverted Row",
   "Single-Leg Banded Romanian Deadlift (SL RDL)",
+  "Single-Leg Banded RDL",
   "Banded Shoulder Press (Self-Anchored)",
   "Supine Swiss Ball Hamstring Curl"
 ];
