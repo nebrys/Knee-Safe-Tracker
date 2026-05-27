@@ -1,6 +1,6 @@
 import { Routine } from "../types";
 
-export const ROUTINE_VERSION = 9; // incremented to force refresh for Lower Body routine enhancements (SL RDL extra set + new bridge exercises)
+export const ROUTINE_VERSION = 12; // incremented to force refresh for exercise renaming and target muscle updates
 
 export const DEFAULT_ROUTINES: Routine[] = [
   {
@@ -66,20 +66,20 @@ export const DEFAULT_ROUTINES: Routine[] = [
       },
       {
         id: "u1_b2",
-        name: "Seated Feet-Banded Row (Neutral Grip)",
+        name: "Wrap Around Seated Feet-Banded Row (Neutral Grip)",
         sets: 3,
         reps: "8-12",
         rest: "60 seconds (before B1)",
         defaultReps: 10,
         pairing: "B2",
         isSuperset: true,
-        targetMuscle: "Lats, Upper Back",
-        setup: "Sit on the floor with your legs fully extended, a tiny bend in your knees. Loop the resistance band around the soles of your feet.",
-        form: "Maintain a highly rigid spine and upright posture. Pull the ends toward your beltline.",
+        targetMuscle: "Lats, Upper Back & Rhomboids",
+        setup: "Sit on the floor with your legs fully extended, a tiny bend in your knees. Loop the resistance band around the soles of your feet and cross the band ends over your feet (right end in left hand, left end in right hand) to form an 'X' shape.",
+        form: "Maintain a highly rigid spine and upright posture. Pull the hands toward your beltline, enjoying the lateral line of pull that pre-stretches the mid-traps and rhomboids at the start of each rep.",
         cues: [
-          "Sit with legs extended, slight bend in knees.",
-          "Maintain a tall, rigid lumbar spine (no rounding).",
-          "Keep elbows glued to ribs, pulling low toward the hips to isolate the lats."
+          "Crossing the band ('right over left, left over right') creates an 'X' shape over your feet.",
+          "This cross-band setup pre-stretches and protracts your shoulder blades at the start of each pull.",
+          "Perform this in a stable, seated position to spare your lower back and maximize rhomboid engagement."
         ]
       },
       {
@@ -315,14 +315,14 @@ export const DEFAULT_ROUTINES: Routine[] = [
       },
       {
         id: "u2_a2",
-        name: "2-in-1 Seated Lawnmower Rows ('Catch and Match')",
+        name: "2-in-1 Seated feet-banded Rows (Catch and Match, Neutral Grip, Elbows tucked, Pulling to Belt-Line)",
         sets: 4,
         reps: "8-12",
         rest: "60 seconds (before A1)",
         defaultReps: 10,
         pairing: "A2",
         isSuperset: true,
-        targetMuscle: "Lats & Upper Back",
+        targetMuscle: "Latissimus Dorsi",
         setup: "Sit with legs straight. Cross the band over your feet in an 'X' shape so it absolutely cannot slide.",
         form: "Pull right elbow to hip with thoracic rotation, grab the band with left hand and match rotation.",
         cues: [
@@ -350,19 +350,20 @@ export const DEFAULT_ROUTINES: Routine[] = [
       },
       {
         id: "u2_b2",
-        name: "Seated Feet-Banded Row (Neutral Grip)",
+        name: "Wrap Around Seated Feet-Banded Row (Pronated Grip, Elbows Flared, Pulling to Upper Chest)",
         sets: 3,
         reps: "8-12",
         rest: "60 seconds (before B1)",
         defaultReps: 10,
         pairing: "B2",
         isSuperset: true,
-        targetMuscle: "Lats Focus",
-        setup: "Sit upright, legs straight, loop band around feet and secure ends with neutral hand placement.",
-        form: "Sit exceptionally tall, retract scapulae, pull low to hips.",
+        targetMuscle: "Rear Deltoids, Rhomboids & Mid-Traps",
+        setup: "Sit upright on the floor with legs straight. Loop the resistance band around your feet, crossing the ends (right in left hand, left in right hand) to form an 'X' shape, and secure with a pronated (overhand) grip.",
+        form: "Sit exceptionally tall. Allow the 'X' setup to pre-stretch your mid-traps and rhomboids at the bottom, then actively retract and pull high toward your upper chest, keeping elbows flared out.",
         cues: [
-          "Elbows tight, pulling low to the hips.",
-          "Allow the shoulder blades to stretch forward at the bottom, but pull them back down and together before the arms bend for the concentric pull."
+          "Crossing the bands creates a lateral pull that promotes superior scapular protraction and retraction.",
+          "Keep the movement controlled and focus on squeezing the shoulder blades together on retraction.",
+          "Stretching the mid-back under crossed-tension delivers heavy physical therapy benefits for posture without lumbar fatigue."
         ]
       },
       {
