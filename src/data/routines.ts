@@ -1,6 +1,6 @@
 import { Routine } from "../types";
 
-export const ROUTINE_VERSION = 8; // incremented to force refresh for the new physiotherapy-focused routines with Calf/Tib superset in Lower 2 & dropdown layout update
+export const ROUTINE_VERSION = 9; // incremented to force refresh for Lower Body routine enhancements (SL RDL extra set + new bridge exercises)
 
 export const DEFAULT_ROUTINES: Routine[] = [
   {
@@ -181,7 +181,7 @@ export const DEFAULT_ROUTINES: Routine[] = [
       {
         id: "l1_b1",
         name: "Single-Leg Banded Romanian Deadlift (SL RDL)",
-        sets: 3,
+        sets: 4,
         reps: "10-15",
         rest: "90s",
         defaultReps: 10,
@@ -196,18 +196,17 @@ export const DEFAULT_ROUTINES: Routine[] = [
       },
       {
         id: "l1_c1",
-        name: "Banded Unilateral Glute Bridge",
+        name: "Banded Frog Bridge (Soles Touching)",
         sets: 3,
-        reps: "10-15",
+        reps: "15-20",
         rest: "90s",
-        defaultReps: 10,
-        targetMuscle: "Gluteus Maximus",
-        setup: "Lie on back flatted, loop resistance band over hips or above knees, lift one leg off the floor.",
-        form: "Drive through grounded heel to lift hips to full lockout without lower back involvement.",
+        defaultReps: 15,
+        targetMuscle: "Glutes & Adductors",
+        setup: "Lie on your back, bring the soles of your feet together, and pull your heels close to your pelvis. Position a resistance band above your knees.",
+        form: "Drive the outer edges of your feet into the floor to bridge your hips up, actively pressing knees outward against the band.",
         cues: [
-          "Drive strictly through the heel.",
-          "Initiate the movement with a slight posterior pelvic tilt to lock the lumbar spine out of the equation.",
-          "The movement stops when the glute is fully contracted."
+          "Keep the soles of your feet pressed firmly together throughout the entire movement.",
+          "Focus on squeezing the glutes hard at the peak of the bridge and pushing knees outward."
         ]
       },
       {
@@ -424,7 +423,7 @@ export const DEFAULT_ROUTINES: Routine[] = [
       {
         id: "l2_b1",
         name: "Single-Leg Banded RDL",
-        sets: 3,
+        sets: 4,
         reps: "10-15",
         rest: "90s",
         defaultReps: 10,
@@ -454,17 +453,17 @@ export const DEFAULT_ROUTINES: Routine[] = [
       },
       {
         id: "l2_d1",
-        name: "Banded Clamshells",
+        name: "Banded Hamstring Bridge (Feet Flat, Driving Outward)",
         sets: 3,
-        reps: "10-15",
+        reps: "12-15",
         rest: "60s",
         defaultReps: 12,
-        targetMuscle: "Gluteus Medius",
-        setup: "Band positioned above knees, lie on side with heels tightly glued.",
-        form: "Open top knee up against resistance, stabilizing lower torso completely.",
+        targetMuscle: "Hamstrings & Gluteus Medius",
+        setup: "Lie on your back, place feet flat on the floor slightly further forward than a standard glute bridge. Have a loop band positioned just above knees.",
+        form: "Drive hips upward, simultaneously pushing your knees outward against the band to keep tension.",
         cues: [
-          "Keep the heels glued together.",
-          "Place a hand on your top hip bone; it must not roll backward during the lift."
+          "Drive through the feet while consciously keeping the knees pushing wide against the band.",
+          "Keep feet slightly further away to emphasize the hamstring and glute co-contraction."
         ]
       },
       {
